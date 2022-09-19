@@ -7,14 +7,55 @@ import org.springframework.context.annotation.Configuration;
 class Start {
     public static void main(String[] data) {
         ApplicationContext context;
-        context = new AnnotationConfigApplicationContext(Setup.class);
+        context = new AnnotationConfigApplicationContext(Prepare.class);
         
         
         Team t = context.getBean("second", Team.class);
         System.out.println(t.name);
+        System.out.println(t); // address
     }
 }
 
+class Prepare {
+    @Bean 
+    Carrier thaiPost() {
+        Carrier c = new Carrier();
+        c.setName("Thailand Post");
+        return c;
+    }
+    
+    @Bean
+    Carrier kerry() {
+        Carrier c = new Carrier();
+        c.setName("Kerry Express");
+        return  c;
+    }
+}
+
+class Carrier {
+    String name;
+    public void setName(String s) {
+        name = s;
+    }
+    
+    public String getName() {
+        return name;
+    }
+}
+
+class Package { 
+    String receiver;
+    String sender = "iTaow Shop";
+    Carrier carrier;
+    
+    public void setReceiver(String r) {
+        receiver = r;
+    }
+    
+    public void setCarreier(Carrier c) {
+        carrier = c;
+    }
+}
 
 @Configuration
 class Setup {     // This is a configuration class
