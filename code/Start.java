@@ -8,6 +8,10 @@ class Start {
     public static void main(String[] data) {
         ApplicationContext context;
         context = new AnnotationConfigApplicationContext(Setup.class);
+        
+        
+        Team t = context.getBean("second", Team.class);
+        System.out.println(t.name);
     }
 }
 
@@ -15,11 +19,18 @@ class Start {
 @Configuration
 class Setup {     // This is a configuration class
     @Bean
-    Team createFirst() {
+    Team first() {
         Team t = new Team();
         t.setName("Vortex");
         t.point = 15;
         return t;           // Spring will keep this address
+    }
+    @Bean
+    Team second() {
+        Team t = new Team();
+        t.setName("Electro");
+        t.point = 12;
+        return t;
     }
 }
 
